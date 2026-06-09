@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+```
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Palhoça Hero</title>
+
+<!-- CSS -->
+<link rel="stylesheet" href="style.css">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- Leaflet -->
+<link rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css" />
+```
+
+</head>
+
+<body>
+
+```
+<!-- LOADING -->
+
+<div id="loading-screen">
+
+    <div class="loading-content">
+
+        <i class="fa-solid fa-shield-halved"></i>
+
+        <h1>PALHOÇA HERO</h1>
+
+        <p>Inicializando Sistema Tático...</p>
+
+    </div>
+
+</div>
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">
+
+        <i class="fa-solid fa-shield-halved"></i>
+
+        <div>
+
+            <h1>Palhoça Hero</h1>
+
+            <small>
+                Transformando cidadãos em agentes urbanos
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="header-center">
+
+        <div class="xp-container">
+
+            <div class="xp-bar">
+
+                <div id="xp-progress"></div>
+
+            </div>
+
+            <span id="xp-text">
+                0 XP
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="player-status">
+
+        <div class="rank-box">
+
+            <span id="player-rank">
+                Civil
+            </span>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- CONTAINER -->
+
+<main class="main-layout">
+
+    <!-- MENU ESQUERDO -->
+
+    <aside class="sidebar">
+
+        <div class="profile-card">
+
+            <img
+                src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                alt="Perfil">
+
+            <h2 id="player-name">
+                Agente Urbano
+            </h2>
+
+            <p id="player-level">
+                Nível 1
+            </p>
+
+        </div>
+
+        <nav>
+
+            <button class="menu-btn">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                Dashboard
+
+            </button>
+
+            <button class="menu-btn">
+
+                <i class="fa-solid fa-crosshairs"></i>
+
+                Missões
+
+            </button>
+
+            <button class="menu-btn">
+
+                <i class="fa-solid fa-trophy"></i>
+
+                Conquistas
+
+            </button>
+
+            <button class="menu-btn">
+
+                <i class="fa-solid fa-ranking-star"></i>
+
+                Ranking
+
+            </button>
+
+            <button class="menu-btn">
+
+                <i class="fa-solid fa-map-location-dot"></i>
+
+                Ocorrências
+
+            </button>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAPA -->
+
+    <section class="map-wrapper">
+
+        <div id="map"></div>
+
+    </section>
+
+    <!-- PAINEL DIREITO -->
+
+    <aside class="right-panel">
+
+        <!-- MISSÃO -->
+
+        <div class="panel-card">
+
+            <h3>
+
+                <i class="fa-solid fa-crosshairs"></i>
+
+                Missão Ativa
+
+            </h3>
+
+            <div id="mission-box">
+
+                Operação Cidade Limpa
+
+            </div>
+
+        </div>
+
+        <!-- ESTATÍSTICAS -->
+
+        <div class="panel-card">
+
+            <h3>
+
+                <i class="fa-solid fa-chart-simple"></i>
+
+                Estatísticas
+
+            </h3>
+
+            <ul>
+
+                <li>
+
+                    Denúncias
+
+                    <span id="total-reports">
+                        0
+                    </span>
+
+                </li>
+
+                <li>
+
+                    XP
+
+                    <span id="total-xp">
+                        0
+                    </span>
+
+                </li>
+
+                <li>
+
+                    Conquistas
+
+                    <span id="total-achievements">
+                        0
+                    </span>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- CONQUISTAS -->
+
+        <div class="panel-card">
+
+            <h3>
+
+                <i class="fa-solid fa-medal"></i>
+
+                Última Conquista
+
+            </h3>
+
+            <div id="achievement-feed">
+
+                Nenhuma conquista desbloqueada.
+
+            </div>
+
+        </div>
+
+        <!-- FEED -->
+
+        <div class="panel-card">
+
+            <h3>
+
+                <i class="fa-solid fa-bolt"></i>
+
+                Atividade Recente
+
+            </h3>
+
+            <div id="activity-feed">
+
+                Nenhuma atividade registrada.
+
+            </div>
+
+        </div>
+
+    </aside>
+
+</main>
+
+<!-- MODAL -->
+
+<div id="report-modal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>
+
+                Nova Ocorrência
+
+            </h2>
+
+        </div>
+
+        <form id="report-form">
+
+            <label>
+
+                Tipo da ocorrência
+
+            </label>
+
+            <select id="report-type">
+
+                <option value="buraco">
+                    Buraco
+                </option>
+
+                <option value="lixo">
+                    Lixo
+                </option>
+
+                <option value="arvore">
+                    Árvore caída
+                </option>
+
+                <option value="alagamento">
+                    Alagamento
+                </option>
+
+                <option value="animal">
+                    Animal abandonado
+                </option>
+
+                <option value="iluminacao">
+                    Iluminação pública
+                </option>
+
+            </select>
+
+            <label>
+
+                Descrição
+
+            </label>
+
+            <textarea
+                id="report-description"
+                rows="5"
+                placeholder="Descreva a situação encontrada...">
+            </textarea>
+
+            <label>
+
+                Foto da ocorrência
+
+            </label>
+
+            <input
+                type="file"
+                id="report-image"
+                accept="image/*">
+
+            <img
+                id="image-preview"
+                src=""
+                alt="Preview">
+
+            <button type="submit">
+
+                Registrar Ocorrência
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- NOTIFICAÇÃO -->
+
+<div id="notification">
+
+    +50 XP
+
+</div>
+
+<!-- LEAFLET -->
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- JS -->
+
+<script src="script.js"></script>
+```
+
+</body>
+
+</html>
