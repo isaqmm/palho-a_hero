@@ -1544,3 +1544,29 @@ body.cyberpunk #xp-progress{
     }
 
 }
+
+/* ================================================ */
+/* V4.1.1 GPS */
+/* ================================================ */
+
+@keyframes pulseGPS{
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        transform:scale(1.3);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
