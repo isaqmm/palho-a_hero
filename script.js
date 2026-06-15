@@ -2358,3 +2358,106 @@ localStorage.setItem(
     )
 
 );
+
+// =================================================
+// V4.1.1
+// GEOLOCALIZAÇÃO AVANÇADA
+// =================================================
+
+function startAdvancedLocation(){
+
+    if(
+
+        !navigator.geolocation
+
+    ){
+
+        return;
+
+    }
+
+    navigator.geolocation.getCurrentPosition(
+
+        position => {
+
+            const lat =
+                position.coords.latitude;
+
+            const lng =
+                position.coords.longitude;
+
+            // CENTRALIZA NO USUÁRIO
+
+            map.setView(
+
+                [lat,lng],
+
+                17
+
+            );
+
+            // ÍCONE GIGANTE
+
+            const gpsIcon =
+
+            L.divIcon({
+
+                html:`
+
+                <div
+                style="
+
+                    width:35px;
+                    height:35px;
+
+                    border-radius:50%;
+
+                    background:#00d9ff;
+
+                    border:4px solid white;
+
+                    box-shadow:
+                    0 0 25px #00d9ff;
+
+                    animation:
+                    pulseGPS 1.5s infinite;
+
+                ">
+
+                </div>
+
+                `,
+
+                className:""
+
+            });
+
+            L.marker(
+
+                [lat,lng],
+
+                {
+
+                    icon:gpsIcon
+
+                }
+
+            )
+
+            .addTo(map)
+
+            .bindPopup(
+
+                "📍 SUA LOCALIZAÇÃO"
+
+            )
+
+            .openPopup();
+
+        }
+
+    );
+
+}
+
+startAdvancedLocation();
